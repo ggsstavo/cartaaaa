@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta do Leitor — Revista Horizonte</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper:       #F5F0E8;
+    --paper-dark:  #EDE6D6;
+    --paper-aged:  #D9CEBA;
+    --ink:         #1C1810;
+    --ink-mid:     #3D3629;
+    --ink-light:   #7A6E5F;
+    --red:         #8B1A1A;
+    --gold:        #9A7B3A;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: #C8BFA8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 1.5rem 5rem;
+    font-family: 'EB Garamond', serif;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .masthead {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeDown 0.6s ease both;
+  }
+  .masthead-line {
+    flex: 1;
+    height: 1px;
+    background: var(--ink-mid);
+    opacity: 0.4;
+  }
+  .masthead-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    opacity: 0.7;
+    padding: 0 1.2rem;
+  }
+
+  .letter-card {
+    width: 100%;
+    max-width: 720px;
+    background: var(--paper);
+    box-shadow:
+      0 2px 6px rgba(0,0,0,0.12),
+      0 12px 40px rgba(0,0,0,0.18),
+      0 32px 80px rgba(0,0,0,0.1),
+      inset 0 0 60px rgba(0,0,0,0.03);
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+    animation: riseUp 0.7s 0.1s ease both;
+    overflow: hidden;
+  }
+
+  .letter-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 0% 0%,   rgba(180,160,120,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 0%,  rgba(160,140,100,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%,  rgba(160,140,100,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 100%,rgba(180,160,120,0.18) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .letter-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--red);
+  }
+
+  .letter-inner {
+    position: relative;
+    z-index: 1;
+    padding: 3.5rem 4.5rem 4rem;
+  }
+
+  .letter-section-tag {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .letter-section-tag span {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .letter-section-tag::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--red);
+    opacity: 0.4;
+  }
+
+  .letter-title {
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.01em;
+  }
+  .letter-title em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .divider {
+    width: 60px;
+    height: 1.5px;
+    background: var(--red);
+    margin: 1.6rem 0 2rem;
+    opacity: 0.7;
+  }
+
+  .letter-meta {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.01em;
+  }
+
+  .letter-to {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    margin-bottom: 1.8rem;
+    font-style: italic;
+  }
+
+  .letter-body {
+    font-size: 1.13rem;
+    line-height: 1.9;
+    color: var(--ink);
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 2.8rem;
+  }
+
+  .letter-body p {
+    text-indent: 3em;
+    margin-bottom: 1.1rem;
+  }
+  .letter-body p:last-child { margin-bottom: 0; }
+
+  .letter-closing {
+    text-align: right;
+  }
+  .letter-closing .closing-word {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink-mid);
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+  .letter-closing .closing-name {
+    font-size: 1.18rem;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    letter-spacing: 0.01em;
+  }
+  .letter-closing .closing-city {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    display: block;
+    margin-top: 0.2rem;
+    font-style: italic;
+  }
+
+  .letter-footer {
+    border-top: 0.5px solid var(--paper-aged);
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .letter-footer-left {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+  .letter-footer-right {
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  .ornament {
+    text-align: center;
+    color: var(--red);
+    font-size: 1rem;
+    opacity: 0.45;
+    margin: 1.8rem 0 0;
+    letter-spacing: 0.6em;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(28px) scale(0.99); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (max-width: 600px) {
+    .letter-inner { padding: 2.5rem 1.8rem 2.5rem; }
+    .letter-title { font-size: 2rem; }
+    .letter-body  { font-size: 1.05rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-line"></div>
+  <span class="masthead-label">Revista Horizonte · Edição de Agosto de 1994</span>
+  <div class="masthead-line"></div>
+</div>
+
+<div class="letter-card">
+  <div class="letter-inner">
+
+    <div class="letter-section-tag">
+      <span>Opinião dos leitores</span>
+    </div>
+
+    <h1 class="letter-title">Carta do <em>Leitor</em></h1>
+    <div class="divider"></div>
+
+    <p class="letter-meta">Curitiba, 14 de agosto de 1994.</p>
+    <p class="letter-to">À revista Horizonte,</p>
+
+    <div class="letter-body">
+      <p>
+        Quero registrar meu apreço pela reportagem publicada na última edição sobre o
+        crescimento das cidades do interior do Brasil. Moro em Curitiba faz quase vinte anos
+        e acompanho de perto as mudanças que o país tem passado nesse período. Raras vezes
+        encontro um texto que consiga equilibrar dados concretos com uma narrativa tão clara
+        e acessível para quem não é especialista no assunto.
+      </p>
+      <p>
+        A matéria tocou num ponto que muita gente ignora: o interior cresce não só em número
+        de habitantes, mas em qualidade de vida, em comércio, em educação. Cidades que há
+        quinze anos não tinham nem uma livraria hoje têm universidades funcionando e gente
+        jovem escolhendo ficar em vez de ir embora para os grandes centros.
+      </p>
+      <p>
+        Espero que a revista continue trazendo esse tipo de conteúdo, que valoriza o Brasil
+        que existe fora do eixo Rio e São Paulo. É exatamente isso que faz a Horizonte diferente
+        das outras publicações do mercado.
+      </p>
+    </div>
+
+    <div class="letter-closing">
+      <span class="closing-word">Com respeito e admiração,</span>
+      <span class="closing-name">Fernando Lopes Carvalho</span>
+      <span class="closing-city">Curitiba, Paraná</span>
+    </div>
+
+    <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+    <div class="letter-footer">
+      <span class="letter-footer-left">Horizonte · Curitiba</span>
+      <span class="letter-footer-right">Carta enviada em agosto de 1994</span>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
